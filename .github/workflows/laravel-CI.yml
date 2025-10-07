@@ -67,9 +67,12 @@ jobs:
           DB_DATABASE=database/database.sqlite
           EOF
 
-      - name: Generate testing app key
+      - name: Set testing APP_KEY
         working-directory: src
-        run: php artisan key:generate --env=testing
+        shell: bash
+        run: |
+          KEY=$(php artisan key:generate --show)
+          printf "\nAPP_KEY=%s\n" "$KEY" >> .env.testing
 
       - name: Clear config cache
         working-directory: src
