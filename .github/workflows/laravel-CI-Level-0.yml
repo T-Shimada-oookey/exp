@@ -49,3 +49,32 @@ jobs:
       - name: Run tests (smoke)
         working-directory: src
         run: php artisan test --testsuite=Feature
+
+      # 以下レベル2
+      - name: Prepare SQLite database file
+        working-directory: src
+        run: |
+          mkdir -p database
+          rm -f database/database.sqlite
+          touch database/database.sqlite
+
+      - name: Set testing DB env
+        working-directory: src
+        run: |
+          # 必要な最小限のテスト用設定を .env に追記
+          {
+            echo "APP_ENV=testing"
+            echo "CACHE_DRIVER=array"
+            echo "SESSION_DRIVER=array"
+            echo "QUEUE_CONNECTION=sync"
+            echo "DB_CONNECTION=sqlite"
+            echo "DB_DATABASE=$(pwd)/database/database.sqlite"
+          } >> .env
+
+      - name: Migrate (for Level 2)
+        working-directory: src
+        run: php artisan migrate --force
+
+      - name: Run tests (Level 2)
+        working-directory: src
+        run: php artisan test
