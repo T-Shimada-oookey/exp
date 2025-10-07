@@ -3,9 +3,9 @@ namespace App\Enums;
 
 enum PayBackPoints: string
 {
-    case Bronze = 'bronze';
-    case Silver = 'silver';
-    case Gold = 'gold';
+    case Bronze = '0';
+    case Silver = '1';
+    case Gold = '2';
 
     public function MembersRankPoint(): float
     {
