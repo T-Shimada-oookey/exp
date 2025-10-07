@@ -67,6 +67,7 @@ jobs:
         run: php artisan config:clear
 
       - name: Config cache
+        working-directory: src
         run: php artisan config:cache
 
       - name: Migrate
