@@ -55,7 +55,6 @@ jobs:
         working-directory: src
         run: |
           mkdir -p database
-          rm -f database/database.sqlite
           touch database/database.sqlite
 
       - name: Set testing DB env
