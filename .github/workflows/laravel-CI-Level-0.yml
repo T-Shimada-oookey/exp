@@ -2,9 +2,9 @@ name: Laravel CI Level 0
 
 on:
   pull_request:
-    branches: [ develop ]   # feature → develop のPRで発火
+    branches: [ develop ]
   push:
-    branches: [ develop ]   # developへの直接pushでも発火
+    branches: [ develop ]
 
 jobs:
   laravel-check:
@@ -17,24 +17,30 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'   # プロジェクトのバージョンに合わせる
+          php-version: '8.3'              # ← プロジェクトのPHPに合わせて 8.2/8.3
           extensions: mbstring, intl, pdo_sqlite, dom, fileinfo
           coverage: none
 
       - name: Cache Composer dependencies
         uses: actions/cache@v4
         with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          path: src/vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('src/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
 
       - name: Install Composer dependencies
+        working-directory: src
         run: composer install --no-interaction --no-progress --prefer-dist
 
       - name: Copy .env
+        working-directory: src
         run: cp .env.example .env
 
       - name: Generate app key
+        working-directory: src
         run: php artisan key:generate
 
       - name: Check artisan works
+        working-directory: src
         run: php artisan about
