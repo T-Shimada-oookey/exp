@@ -17,7 +17,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'              # ← プロジェクトのPHPに合わせて 8.2/8.3
+          php-version: '8.3'
           extensions: mbstring, intl, pdo_sqlite, dom, fileinfo
           coverage: none
 
@@ -44,3 +44,8 @@ jobs:
       - name: Check artisan works
         working-directory: src
         run: php artisan about
+
+      # 以下レベル1
+      - name: Run tests (smoke)
+        working-directory: src
+        run: php artisan test --testsuite=Feature --no-interaction
