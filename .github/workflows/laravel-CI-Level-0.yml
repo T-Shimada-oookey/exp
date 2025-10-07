@@ -48,4 +48,4 @@ jobs:
       # 以下レベル1
       - name: Run tests (smoke)
         working-directory: src
-        run: php artisan test --testsuite=Feature --no-interaction
+        run: php artisan test --testsuite=Feature
