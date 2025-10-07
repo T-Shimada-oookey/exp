@@ -45,18 +45,18 @@ jobs:
         working-directory: src
         run: php artisan about
 
-      # 以下レベル1
-      - name: Run tests (smoke)
-        working-directory: src
-        run: php artisan test --testsuite=Feature
-
-      # 以下レベル2
       - name: Prepare SQLite database file
         working-directory: src
         run: |
           mkdir -p database
           touch database/database.sqlite
 
+      # 以下レベル1
+      - name: Run tests (smoke)
+        working-directory: src
+        run: php artisan test --testsuite=Feature
+
+      # 以下レベル2
       - name: Set testing DB env
         working-directory: src
         run: |
