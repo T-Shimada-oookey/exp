@@ -15,4 +15,19 @@ enum PayBackPoints: string
             self::Gold => 0.1,
         };
     }
+
+    /**
+     * 累計購入額に対応するランクを返す
+     * Bronze: ¥0     〜 ¥9,999
+     * Silver: ¥10,000 〜 ¥49,999
+     * Gold:   ¥50,000 以上
+     */
+    public static function fromTotalAmount(int $totalAmount): self
+    {
+        return match (true) {
+            $totalAmount >= 50000 => self::Gold,
+            $totalAmount >= 10000 => self::Silver,
+            default               => self::Bronze,
+        };
+    }
 }

@@ -11,3 +11,7 @@ Route::get('/', function () {
 Route::group(['prefix'=> 'trial', 'as' => 'trial.'], function () {
     Route::resource('interface', InterfaceController::class);
 });
+
+Route::get('/health', function () {
+    return response()->json(['status' => 'ok']);
+});
