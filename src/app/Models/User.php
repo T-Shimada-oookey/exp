@@ -22,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'member_rank',
+        'total_purchase_amount',
     ];
 
     /**
@@ -48,6 +50,7 @@ class User extends Authenticatable
     }
 
     protected $casts = [
-        'member_rank' => PayBackPoints::class,
+        'member_rank'           => PayBackPoints::class,
+        'total_purchase_amount' => 'integer',
     ];
 }
