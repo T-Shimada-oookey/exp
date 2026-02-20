@@ -59,7 +59,18 @@ class InterfaceController extends Controller
         if($request->input('amount')){
             $amount = (float)$request->input('amount');
             $discount = $this->discountCalculator->calculateDiscount($amount);
-            return response()->view('trial.interface', ['discount' => $discount]);
+
+            $member_ranks = PayBackPoints::cases();
+            $user = User::find(1);
+            $userRank = $user->member_rank->name;
+            $userPoint = $user->member_rank->MembersRankPoint();
+
+            return response()->view('trial.interface', [
+                'discount'     => $discount,
+                'member_ranks' => $member_ranks,
+                'userRank'     => $userRank,
+                'userPoint'    => $userPoint,
+            ]);
         }
     }
 
