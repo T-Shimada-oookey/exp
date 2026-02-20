@@ -42,7 +42,9 @@ exp/
 | Web Server | Nginx 1.26 |
 | PHP Server | PHP-FPM 8.3 |
 | Database | MySQL (Docker) |
-| Frontend Build | Vite + Node.js 20 |
+| Frontend Build | Vite 6 + Node.js 20 |
+| CSS | TailwindCSS 4 |
+| HTTP Client | Axios 1.7 |
 | Testing | PHPUnit 11 |
 | Code Style | Laravel Pint |
 | Mail (dev) | MailHog |
@@ -87,6 +89,20 @@ php artisan key:generate
 php artisan migrate
 composer run dev   # starts server + queue + logs + vite concurrently
 ```
+
+## Frontend Assets
+
+Built with **Vite 6** and **TailwindCSS 4** via the `laravel-vite-plugin`.
+
+```bash
+# From src/ directory (or inside the app container)
+npm install
+npm run dev    # Vite dev server (HMR) — also exposed on port 5173 in Docker
+npm run build  # Production build to public/build/
+```
+
+CSS entry: `resources/css/app.css` (Tailwind via `@import "tailwindcss"`)
+JS entry: `resources/js/app.js` (imports `bootstrap.js` which sets up Axios)
 
 ## Running Tests
 
